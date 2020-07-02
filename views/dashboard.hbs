@@ -1,0 +1,52 @@
+<h6>Dashboard</h6>
+<h3>Welcome {{name}}</h3>
+<p>Here are your articles</p>
+{{#if stories}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each stories}}
+                <tr>
+                    <td><a href="/stories/{{_id}}">{{title}}</a></td>
+                    <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/stories/edit/{{_id}}" class="btn btn-float">
+                        <i class="fas fa-edit"></i>
+                        </a>
+
+                        
+                        <button href="#modal1" class="btn red modal-trigger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- Modal Structure -->
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                    <h4>Delete Article</h4>
+                    <p>Do you really want to delete your article?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="/stories/{{_id}}" method="POST" id="delete-form">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="modal-close waves-effect waves-green btn-flat">Yes</button>
+                            <button href="#!" class="modal-close waves-effect waves-green btn-flat">No</button>
+                        </form>
+                    </div>
+                </div>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+<p>You have not create any articles</p>
+{{/if}}
+
